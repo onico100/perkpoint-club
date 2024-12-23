@@ -33,8 +33,14 @@ export async function GET(req: NextRequest) {
     // Find all benefits for the given clubId
     const benefits = await collection.find({ clubId }).toArray();
 
+    // Modify each benefit's _id to start with "our"
+    const modifiedBenefits = benefits.map((benefit) => ({
+      ...benefit,
+      _id: `our${benefit._id}`,
+    }));
+
     // Create the response with CORS headers
-    const response = NextResponse.json(benefits, { status: 200 });
+    const response = NextResponse.json(modifiedBenefits, { status: 200 });
     response.headers.set("Access-Control-Allow-Origin", "*"); // Allow all origins, or replace '*' with a specific domain
     response.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
     response.headers.set("Access-Control-Allow-Headers", "Content-Type");
