@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import clientPromise from "../../../services/mongo";
 
 type Branch = {
-  name: string;
+  branchName: string;
   address: string;
 };
 
@@ -33,7 +33,8 @@ export async function GET(req: NextRequest) {
     // Find all benefits for the given clubId
     const benefits = await collection.find({ clubId }).toArray();
 
-    return NextResponse.json({ benefits }, { status: 200 });
+    // Return benefits as JSON
+    return NextResponse.json(benefits, { status: 200 });
   } catch (error) {
     console.error("Error fetching benefits:", error);
     return NextResponse.json(
