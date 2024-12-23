@@ -33,13 +33,33 @@ export async function GET(req: NextRequest) {
     // Find all benefits for the given clubId
     const benefits = await collection.find({ clubId }).toArray();
 
-    // Return benefits as JSON
-    return NextResponse.json(benefits, { status: 200 });
+    // Create the response with CORS headers
+    const response = NextResponse.json(benefits, { status: 200 });
+    response.headers.set("Access-Control-Allow-Origin", "*"); // Allow all origins, or replace '*' with a specific domain
+    response.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+    return response;
   } catch (error) {
     console.error("Error fetching benefits:", error);
-    return NextResponse.json(
+    const response = NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
     );
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+    return response;
   }
+}
+
+// Handle the OPTIONS request for preflight checks
+export async function OPTIONS() {
+  const response = NextResponse.json(null, { status: 204 }); // No Content
+  response.headers.set("Access-Control-Allow-Origin", "*");
+  response.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
+  response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+  return response;
 }
