@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 type Branch = {
-  branchName: string;
-  address: string;
+  nameBranch: string;
+  city: string;
 };
 
 type Benefit = {
@@ -88,7 +88,7 @@ const BenefitsPage: React.FC = () => {
               <ul>
                 {benefit.branches.map((branch, index) => (
                   <li key={index}>
-                    <strong>{branch.branchName}</strong>: {branch.address}
+                    <strong>{branch.nameBranch}</strong>: {branch.city}
                   </li>
                 ))}
               </ul>
