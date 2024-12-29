@@ -26,7 +26,7 @@ const BenefitsPage: React.FC = () => {
   useEffect(() => {
     const fetchBenefits = async () => {
       try {
-        const clubId = "673efe77d993d72c4c0648fb"; // Replace with dynamic clubId if needed
+        const clubId = "67691d34e49ae94f97d1828d"; // Replace with dynamic clubId if needed
         const response = await fetch(`/api/benefits?clubId=${clubId}`);
         if (!response.ok) {
           throw new Error(`Error fetching benefits: ${response.statusText}`);
